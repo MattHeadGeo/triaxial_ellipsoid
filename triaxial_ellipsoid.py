@@ -63,7 +63,7 @@ def Rz(phi: float):
 def ellipsoid_surface(
     center_x: float, center_y: float, center_z: float,
     radius_x: float, radius_y: float, radius_z: float,
-    theta: float, phi: float, rotation: float,
+    phi: float, theta: float, psi: float,
     angle_units: str = 'degrees'
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
@@ -75,10 +75,10 @@ def ellipsoid_surface(
         Coordinates of the center of the ellipsoid.
     radius_x, radius_y, radius_z : float
         Radii of the ellipsoid.
-    theta, phi, rotation : float
+    phi, theta, psi : float
         Spherical angles for rotation.
     angle_units : str, optional
-        Units of the dip and strike angles. Default is 'degrees'.
+        Units of the phi, theta, and psi angles. Default is 'degrees'.
 
     Returns
     -------
@@ -91,9 +91,9 @@ def ellipsoid_surface(
 
     # Check angle units and convert to radians if necessary
     if angle_units.lower() == 'degrees':
-        theta = np.deg2rad(theta)
         phi = np.deg2rad(phi)
-        rotation = np.deg2rad(rotation)
+        theta = np.deg2rad(theta)
+        psi = np.deg2rad(psi)
 
     # Generate the coordinates for the ellipsoid
     u = np.linspace(0, 2 * np.pi, 100)
@@ -109,8 +109,8 @@ def ellipsoid_surface(
                         np.reshape(z, [z.size, 1])
     ]
 
-    # Rotated using ZXZ convention
-    rotated_coordinates = coordinates @ Rz(-rotation) @ Ry(theta) @ Rz(-phi)
+    # Rotated using ZYZ convention
+    rotated_coordinates = coordinates @ Rz(-psi) @ Ry(theta) @ Rz(-phi)
     rotated_coordinates += np.c_[[center_x], [center_y], [center_z]]
 
     # Reshape the rotated coordinates
