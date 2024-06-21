@@ -139,7 +139,7 @@ def set_limits(
 
     Returns
     -------
-    Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]]
+    tuple[tuple[float, float], tuple[float, float], tuple[float, float]]
         Limits of the axes.
     """
     
