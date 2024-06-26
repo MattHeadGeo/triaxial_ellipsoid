@@ -96,8 +96,8 @@ def ellipsoid_surface(
         psi = np.deg2rad(psi)
 
     # Generate the coordinates for the ellipsoid
-    u = np.linspace(0, 2 * np.pi, 100)
-    v = np.linspace(0, np.pi, 100)
+    u = np.linspace(0, 2 * np.pi, 90)
+    v = np.linspace(0, np.pi, 90)
 
     x = radius_x * np.outer(np.cos(u), np.sin(v))
     y = radius_y * np.outer(np.sin(u), np.sin(v))
@@ -114,9 +114,9 @@ def ellipsoid_surface(
     rotated_coordinates += np.c_[[center_x], [center_y], [center_z]]
 
     # Reshape the rotated coordinates
-    x = np.reshape(rotated_coordinates[:, 0], (100, 100))
-    y = np.reshape(rotated_coordinates[:, 1], (100, 100))
-    z = np.reshape(rotated_coordinates[:, 2], (100, 100))
+    x = np.reshape(rotated_coordinates[:, 0], (90, 90))
+    y = np.reshape(rotated_coordinates[:, 1], (90, 90))
+    z = np.reshape(rotated_coordinates[:, 2], (90, 90))
 
     return x, y, z
 
